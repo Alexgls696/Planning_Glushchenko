@@ -36,6 +36,7 @@
             info_text = new Label();
             info = new Label();
             error_label = new Label();
+            time_label = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -92,11 +93,12 @@
             // info_text
             // 
             info_text.AutoSize = true;
+            info_text.BorderStyle = BorderStyle.FixedSingle;
             info_text.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             info_text.Location = new Point(7, 7);
             info_text.MaximumSize = new Size(225, 0);
             info_text.Name = "info_text";
-            info_text.Size = new Size(225, 609);
+            info_text.Size = new Size(223, 527);
             info_text.TabIndex = 0;
             info_text.Text = resources.GetString("info_text.Text");
             // 
@@ -121,12 +123,23 @@
             error_label.Text = "text";
             error_label.Visible = false;
             // 
+            // time_label
+            // 
+            time_label.AutoSize = true;
+            time_label.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            time_label.Location = new Point(824, 15);
+            time_label.Name = "time_label";
+            time_label.Size = new Size(117, 20);
+            time_label.TabIndex = 6;
+            time_label.Text = "Текущее время";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(963, 500);
+            Controls.Add(time_label);
             Controls.Add(error_label);
             Controls.Add(info);
             Controls.Add(panel1);
@@ -154,5 +167,6 @@
         private Label info_text;
         private Label info;
         private Label error_label;
+        private Label time_label;
     }
 }
