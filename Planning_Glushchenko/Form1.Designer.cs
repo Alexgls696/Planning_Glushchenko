@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             dataGridView1 = new DataGridView();
             add = new Button();
             remove_button = new Button();
@@ -52,11 +51,6 @@
             dataGridView1.RowTemplate.Height = 29;
             dataGridView1.Size = new Size(682, 480);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
-            dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridView1.RowHeaderMouseClick += dataGridView1_RowHeaderMouseClick;
             // 
             // add
             // 
@@ -68,7 +62,6 @@
             add.TabIndex = 1;
             add.Text = "Добавить";
             add.UseVisualStyleBackColor = true;
-            add.Click += add_Click;
             // 
             // remove_button
             // 
@@ -79,16 +72,18 @@
             remove_button.TabIndex = 2;
             remove_button.Text = "Удалить";
             remove_button.UseVisualStyleBackColor = true;
-            remove_button.Click += remove_button_Click;
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.AutoSize = true;
             panel1.Controls.Add(info_text);
             panel1.Location = new Point(701, 136);
+            panel1.MaximumSize = new Size(250, 340);
             panel1.Name = "panel1";
             panel1.Size = new Size(250, 340);
             panel1.TabIndex = 3;
+            panel1.Paint += panel1_Paint;
             // 
             // info_text
             // 
@@ -96,11 +91,11 @@
             info_text.BorderStyle = BorderStyle.FixedSingle;
             info_text.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             info_text.Location = new Point(7, 7);
-            info_text.MaximumSize = new Size(225, 0);
+            info_text.MaximumSize = new Size(220, 1000);
             info_text.Name = "info_text";
-            info_text.Size = new Size(223, 527);
+            info_text.Size = new Size(41, 23);
             info_text.TabIndex = 0;
-            info_text.Text = resources.GetString("info_text.Text");
+            info_text.Text = "text";
             // 
             // info
             // 
@@ -137,6 +132,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(963, 500);
             Controls.Add(time_label);

@@ -1,4 +1,5 @@
 using System;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace Planning_Glushchenko
@@ -24,6 +25,21 @@ namespace Planning_Glushchenko
             SelectedRowIndex = -1;
             time_label.Text = DateTime.Now.ToString();
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            //-----------------------------------------------------------------------------
+            info_text.Text = "*Статус OK - задача завершена NO - не завершена.\r\n*" +
+                "Вы также можете изменять задачи.\r\n*Если введенные вами данные будут неверными, " +
+                "значения будут выставлены автоматически.\r\n*Для добавления элемента нажмите кнопку \"Добавить\" и " +
+                "заполните таблицу.\r\n*Для удаления элемента нажмите на номер строки, которую хотите удалить, строка должна стать выделенной, " +
+                "нажмите \"Удалить\".\r\n*Просроченные задачи выделены красным, активные - зеленым. (время и дата отдельно)\r\n*" +
+                "Таблица сохраняется при выходе из приложения.\r\n";
+            //-----------------------------------------------------------------------------
+            dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
+            dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
+            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+            dataGridView1.RowHeaderMouseClick += dataGridView1_RowHeaderMouseClick;
+            add.Click += add_Click;
+            remove_button.Click += remove_button_Click;
         }
 
         private void add_rows_index()
@@ -182,7 +198,7 @@ namespace Planning_Glushchenko
         {
             string[] split = value.Split('.');
             string[] time_split = time.Split(":");
-            if (dataGridView1.Rows[index].Cells[5].Value!=null&&dataGridView1.Rows[index].Cells[5].Value.Equals("NO"))
+            if (dataGridView1.Rows[index].Cells[5].Value != null && dataGridView1.Rows[index].Cells[5].Value.Equals("NO"))
             {
                 dataGridView1.Rows[index].Cells[5].Style.BackColor = Color.Red;
             }
@@ -209,13 +225,13 @@ namespace Planning_Glushchenko
 
             string[] Time = dataGridView1.Rows[index].Cells[4].Value.ToString().Split(":");
 
-            if(int.Parse(split[2]) ==  DateTime.Now.Year&& int.Parse(split[1]) == DateTime.Now.Month&& int.Parse(split[0]) == DateTime.Now.Day)
+            if (int.Parse(split[2]) == DateTime.Now.Year && int.Parse(split[1]) == DateTime.Now.Month && int.Parse(split[0]) == DateTime.Now.Day)
             {
                 if (int.Parse(Time[0]) < DateTime.Now.Hour)
                 {
                     dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
-                if (int.Parse(Time[1]) < DateTime.Now.Minute&& int.Parse(Time[0]) == DateTime.Now.Hour)
+                if (int.Parse(Time[1]) < DateTime.Now.Minute && int.Parse(Time[0]) == DateTime.Now.Hour)
                 {
                     dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
@@ -313,7 +329,7 @@ namespace Planning_Glushchenko
                             count++;
                         }
                     }
-                    if (count != last_value.Length && last_value.Length!=0)
+                    if (count != last_value.Length && last_value.Length != 0)
                     {
                         dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
                     }
@@ -359,7 +375,7 @@ namespace Planning_Glushchenko
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+
             if (e.ColumnIndex != -1)
             {
                 SelectedRowIndex = e.ColumnIndex;
@@ -368,6 +384,11 @@ namespace Planning_Glushchenko
                     last_value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
