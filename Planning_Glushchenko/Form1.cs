@@ -26,9 +26,9 @@ namespace Planning_Glushchenko
             time_label.Text = DateTime.Now.ToString();
             FormBorderStyle = FormBorderStyle.FixedSingle;
             //-----------------------------------------------------------------------------
-            info_text.Text = "*Статус OK - задача завершена NO - не завершена.\r\n*" +
+            info_text.Text = "*Статус OK - задача выполнена NO - не выполнена.\r\n*" +
                 "Вы также можете изменять задачи.\r\n*Если введенные вами данные будут неверными, " +
-                "значения будут выставлены автоматически.\r\n*Для добавления элемента нажмите кнопку \"Добавить\" и " +
+                "значения будут оставлены прежними.\r\n*Для добавления элемента нажмите кнопку \"Добавить\" и " +
                 "заполните таблицу.\r\n*Для удаления элемента нажмите на номер строки, которую хотите удалить, строка должна стать выделенной, " +
                 "нажмите \"Удалить\".\r\n*Просроченные задачи выделены красным, активные - зеленым. (время и дата отдельно)\r\n*" +
                 "Таблица сохраняется при выходе из приложения.\r\n";
@@ -194,34 +194,37 @@ namespace Planning_Glushchenko
                     dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Green;
                 }
             }
-            if (int.Parse(split[2]) < DateTime.Now.Year)
+            if (split.Length == 3)
             {
-                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
-            }
-            if (int.Parse(split[1]) < DateTime.Now.Month)
-            {
-                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
-            }
-            if (int.Parse(split[0]) < DateTime.Now.Day)
-            {
-                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
-            }
-            dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Green;
-
-            string[] Time = dataGridView1.Rows[index].Cells[2].Value.ToString().Split(":");
-
-            if (int.Parse(split[2]) == DateTime.Now.Year && int.Parse(split[1]) == DateTime.Now.Month && int.Parse(split[0]) == DateTime.Now.Day)
-            {
-                if (int.Parse(Time[0]) < DateTime.Now.Hour)
+                if (int.Parse(split[2]) < DateTime.Now.Year)
                 {
-                    dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
-                if (int.Parse(Time[1]) < DateTime.Now.Minute && int.Parse(Time[0]) == DateTime.Now.Hour)
+                if (int.Parse(split[1]) < DateTime.Now.Month)
                 {
-                    dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
+                if (int.Parse(split[0]) < DateTime.Now.Day)
+                {
+                    dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                }
+                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Green;
+
+                string[] Time = dataGridView1.Rows[index].Cells[2].Value.ToString().Split(":");
+
+                if (int.Parse(split[2]) == DateTime.Now.Year && int.Parse(split[1]) == DateTime.Now.Month && int.Parse(split[0]) == DateTime.Now.Day)
+                {
+                    if (int.Parse(Time[0]) < DateTime.Now.Hour)
+                    {
+                        dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    }
+                    if (int.Parse(Time[1]) < DateTime.Now.Minute && int.Parse(Time[0]) == DateTime.Now.Hour)
+                    {
+                        dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    }
+                }
+                dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Green;
             }
-            dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Green;
         }
         private void check_cells()
         {
@@ -288,7 +291,7 @@ namespace Planning_Glushchenko
                         {
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value;
                         }
-                        if (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[2].Value != null)
+                        if (dataGridView1.Rows[e.RowIndex].Cells[1].Value != null && dataGridView1.Rows[e.RowIndex].Cells[2].Value != null)
                         {
                             status_check(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), e.RowIndex);
                         }
@@ -298,6 +301,12 @@ namespace Planning_Glushchenko
                 {
                     string alp = "0123456789:";
                     int count = 0;
+                    if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value==null)
+                    {
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "NO";
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Red; 
+                        return;
+                    }
                     string line = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                     if (!line.Equals("OK"))
                     {
