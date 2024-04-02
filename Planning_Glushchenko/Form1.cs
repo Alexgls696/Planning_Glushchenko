@@ -307,13 +307,16 @@ namespace Planning_Glushchenko
                             count++;
                         }
                     }
-                    if (count != last_value.Length && last_value.Length != 0)
+                    if (count != 10 || !(line.IndexOf('.') == 2 && line.IndexOf('.',3) == 5))
                     {
                         dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
                     }
                     if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[4].Value != null)
                     {
-                        status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
+                        if (count == 10 && line.IndexOf('.') == 2 && line.IndexOf('.') == 5)
+                        {
+                            status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
+                        }
                     }
                 }
 
@@ -329,18 +332,21 @@ namespace Planning_Glushchenko
                             count++;
                         }
                     }
-                    if (count != last_value.Length && last_value.Length != 0)
+                    if (count != 5||line.IndexOf(':')!=2)
                     {
                         dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
                     }
                     string[] split = line.Split(':');
-                    if (int.Parse(split[0]) > 23 || int.Parse(split[1]) >= 60)
+                    if (count == 5 && line.IndexOf(':') == 2)
                     {
-                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value;
-                    }
-                    if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[4].Value != null)
-                    {
-                        status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
+                        if (int.Parse(split[0]) > 23 || int.Parse(split[1]) >= 60)
+                        {
+                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value;
+                        }
+                        if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[4].Value != null)
+                        {
+                            status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
+                        }
                     }
                 }
                 if (e.ColumnIndex == 5)
