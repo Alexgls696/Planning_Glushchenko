@@ -28,131 +28,130 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            add = new Button();
-            remove_button = new Button();
-            panel1 = new Panel();
-            info_text = new Label();
-            info = new Label();
-            error_label = new Label();
-            time_label = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel1.SuspendLayout();
-            SuspendLayout();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.add = new System.Windows.Forms.Button();
+            this.remove_button = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.info_text = new System.Windows.Forms.Label();
+            this.info = new System.Windows.Forms.Label();
+            this.error_label = new System.Windows.Forms.Label();
+            this.time_label = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // dataGridView1
             // 
-            dataGridView1.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(10, 9);
-            dataGridView1.Margin = new Padding(3, 2, 3, 2);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 80;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(682, 480);
-            dataGridView1.TabIndex = 0;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(11, 12);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 80;
+            this.dataGridView1.RowTemplate.Height = 29;
+            this.dataGridView1.Size = new System.Drawing.Size(582, 640);
+            this.dataGridView1.TabIndex = 0;
+            
             // 
             // add
             // 
-            add.FlatStyle = FlatStyle.Flat;
-            add.Location = new Point(698, 9);
-            add.Margin = new Padding(3, 2, 3, 2);
-            add.Name = "add";
-            add.Size = new Size(120, 35);
-            add.TabIndex = 1;
-            add.Text = "Добавить";
-            add.UseVisualStyleBackColor = true;
+            this.add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.add.Location = new System.Drawing.Point(615, 12);
+            this.add.Name = "add";
+            this.add.Size = new System.Drawing.Size(137, 47);
+            this.add.TabIndex = 1;
+            this.add.Text = "Добавить";
+            this.add.UseVisualStyleBackColor = true;
             // 
             // remove_button
             // 
-            remove_button.FlatStyle = FlatStyle.Flat;
-            remove_button.Location = new Point(698, 49);
-            remove_button.Name = "remove_button";
-            remove_button.Size = new Size(120, 35);
-            remove_button.TabIndex = 2;
-            remove_button.Text = "Удалить";
-            remove_button.UseVisualStyleBackColor = true;
+            this.remove_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.remove_button.Location = new System.Drawing.Point(615, 65);
+            this.remove_button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.remove_button.Name = "remove_button";
+            this.remove_button.Size = new System.Drawing.Size(137, 47);
+            this.remove_button.TabIndex = 2;
+            this.remove_button.Text = "Удалить";
+            this.remove_button.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            panel1.AutoScroll = true;
-            panel1.AutoSize = true;
-            panel1.Controls.Add(info_text);
-            panel1.Location = new Point(701, 136);
-            panel1.MaximumSize = new Size(250, 340);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(250, 340);
-            panel1.TabIndex = 3;
-            panel1.Paint += panel1_Paint;
+            this.panel1.AutoScroll = true;
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.info_text);
+            this.panel1.Location = new System.Drawing.Point(620, 188);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.MaximumSize = new System.Drawing.Size(286, 453);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(286, 453);
+            this.panel1.TabIndex = 3;
             // 
             // info_text
             // 
-            info_text.AutoSize = true;
-            info_text.BorderStyle = BorderStyle.FixedSingle;
-            info_text.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            info_text.Location = new Point(7, 7);
-            info_text.MaximumSize = new Size(220, 1000);
-            info_text.Name = "info_text";
-            info_text.Size = new Size(41, 23);
-            info_text.TabIndex = 0;
-            info_text.Text = "text";
+            this.info_text.AutoSize = true;
+            this.info_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.info_text.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.info_text.Location = new System.Drawing.Point(8, 9);
+            this.info_text.MaximumSize = new System.Drawing.Size(251, 1333);
+            this.info_text.Name = "info_text";
+            this.info_text.Size = new System.Drawing.Size(49, 30);
+            this.info_text.TabIndex = 0;
+            this.info_text.Text = "text";
             // 
             // info
             // 
-            info.AutoSize = true;
-            info.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            info.Location = new Point(767, 108);
-            info.Name = "info";
-            info.Size = new Size(125, 25);
-            info.TabIndex = 4;
-            info.Text = "Инструкция";
+            this.info.AutoSize = true;
+            this.info.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.info.Location = new System.Drawing.Point(686, 152);
+            this.info.Name = "info";
+            this.info.Size = new System.Drawing.Size(157, 32);
+            this.info.TabIndex = 4;
+            this.info.Text = "Инструкция";
             // 
             // error_label
             // 
-            error_label.AutoSize = true;
-            error_label.ForeColor = Color.Red;
-            error_label.Location = new Point(698, 90);
-            error_label.Name = "error_label";
-            error_label.Size = new Size(27, 15);
-            error_label.TabIndex = 5;
-            error_label.Text = "text";
-            error_label.Visible = false;
+            this.error_label.AutoSize = true;
+            this.error_label.ForeColor = System.Drawing.Color.Red;
+            this.error_label.Location = new System.Drawing.Point(615, 120);
+            this.error_label.Name = "error_label";
+            this.error_label.Size = new System.Drawing.Size(34, 20);
+            this.error_label.TabIndex = 5;
+            this.error_label.Text = "text";
+            this.error_label.Visible = false;
             // 
             // time_label
             // 
-            time_label.AutoSize = true;
-            time_label.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            time_label.Location = new Point(824, 15);
-            time_label.Name = "time_label";
-            time_label.Size = new Size(117, 20);
-            time_label.TabIndex = 6;
-            time_label.Text = "Текущее время";
+            this.time_label.AutoSize = true;
+            this.time_label.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.time_label.Location = new System.Drawing.Point(759, 20);
+            this.time_label.Name = "time_label";
+            this.time_label.Size = new System.Drawing.Size(147, 25);
+            this.time_label.TabIndex = 6;
+            this.time_label.Text = "Текущее время";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(963, 500);
-            Controls.Add(time_label);
-            Controls.Add(error_label);
-            Controls.Add(info);
-            Controls.Add(panel1);
-            Controls.Add(remove_button);
-            Controls.Add(add);
-            Controls.Add(dataGridView1);
-            Margin = new Padding(3, 2, 3, 2);
-            Name = "Form1";
-            Text = "Form1";
-            FormClosing += Form1_FormClosing;
-            Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ClientSize = new System.Drawing.Size(946, 667);
+            this.Controls.Add(this.time_label);
+            this.Controls.Add(this.error_label);
+            this.Controls.Add(this.info);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.remove_button);
+            this.Controls.Add(this.add);
+            this.Controls.Add(this.dataGridView1);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

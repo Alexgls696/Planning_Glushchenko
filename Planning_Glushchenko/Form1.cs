@@ -16,7 +16,7 @@ namespace Planning_Glushchenko
         {
 
             InitializeComponent();
-            dataGridView1.ColumnCount = 6;
+            dataGridView1.ColumnCount = 4;
             dataGridView1.AllowUserToAddRows = false;
             set_calendar_days();
             fill_table();
@@ -40,6 +40,8 @@ namespace Planning_Glushchenko
             dataGridView1.RowHeaderMouseClick += dataGridView1_RowHeaderMouseClick;
             add.Click += add_Click;
             remove_button.Click += remove_button_Click;
+            this.dataGridView1.RowHeaderMouseClick += 
+                new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
         }
 
         private void add_rows_index()
@@ -48,12 +50,10 @@ namespace Planning_Glushchenko
             {
                 dataGridView1.Rows[i].HeaderCell.Value = string.Format((i + 1).ToString(), "0");
             }
-            dataGridView1.Columns[0].HeaderText = "Дата";
-            dataGridView1.Columns[1].HeaderText = "Время";
-            dataGridView1.Columns[2].HeaderText = "Задача";
-            dataGridView1.Columns[3].HeaderText = "Дата ок.";
-            dataGridView1.Columns[4].HeaderText = "Время ок.";
-            dataGridView1.Columns[5].HeaderText = "Статус";
+            dataGridView1.Columns[0].HeaderText = "Задача";
+            dataGridView1.Columns[1].HeaderText = "Дата оконч.";
+            dataGridView1.Columns[2].HeaderText = "Время оконч.";
+            dataGridView1.Columns[3].HeaderText = "Статус";
         }
 
         private void fill_table()
@@ -61,12 +61,10 @@ namespace Planning_Glushchenko
             dataGridView1.RowCount = calendar_days.Count;
             for (int i = 0; i < calendar_days.Count; i++)
             {
-                dataGridView1.Rows[i].Cells[0].Value = calendar_days[i].get_start_date();
-                dataGridView1.Rows[i].Cells[1].Value = calendar_days[i].get_start_time();
-                dataGridView1.Rows[i].Cells[2].Value = calendar_days[i].getTask();
-                dataGridView1.Rows[i].Cells[3].Value = calendar_days[i].get_end_date();
-                dataGridView1.Rows[i].Cells[4].Value = calendar_days[i].get_end_time();
-                dataGridView1.Rows[i].Cells[5].Value = calendar_days[i].getStatus();
+                dataGridView1.Rows[i].Cells[0].Value = calendar_days[i].getTask();
+                dataGridView1.Rows[i].Cells[1].Value = calendar_days[i].get_end_date();
+                dataGridView1.Rows[i].Cells[2].Value = calendar_days[i].get_end_time();
+                dataGridView1.Rows[i].Cells[3].Value = calendar_days[i].getStatus();
             }
         }
         private void set_calendar_days()
@@ -100,52 +98,38 @@ namespace Planning_Glushchenko
                 StreamWriter reader = new StreamWriter("Calendar_day.txt");
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
+
                     if (dataGridView1.Rows[i].Cells[0].Value == null)
                     {
-                        dataGridView1.Rows[i].Cells[0].Value = "00.00.0000";
+                        dataGridView1.Rows[i].Cells[0].Value = "-";
                     }
 
                     if (dataGridView1.Rows[i].Cells[1].Value == null)
                     {
-                        dataGridView1.Rows[i].Cells[1].Value = "00:00";
+                        dataGridView1.Rows[i].Cells[1].Value = "00.00.0000";
                     }
 
                     if (dataGridView1.Rows[i].Cells[2].Value == null)
                     {
-                        dataGridView1.Rows[i].Cells[2].Value = "-";
+                        dataGridView1.Rows[i].Cells[2].Value = "00:00";
                     }
 
                     if (dataGridView1.Rows[i].Cells[3].Value == null)
                     {
-                        dataGridView1.Rows[i].Cells[3].Value = "00.00.0000";
+                        dataGridView1.Rows[i].Cells[3].Value = "NO";
                     }
-
-                    if (dataGridView1.Rows[i].Cells[4].Value == null)
-                    {
-                        dataGridView1.Rows[i].Cells[4].Value = "00:00";
-                    }
-
-                    if (dataGridView1.Rows[i].Cells[5].Value == null)
-                    {
-                        dataGridView1.Rows[i].Cells[5].Value = "NO";
-                    }
-                    string tmp = dataGridView1.Rows[i].Cells[0].Value
+                        string tmp = dataGridView1.Rows[i].Cells[0].Value
                         + " " + dataGridView1.Rows[i].Cells[1].Value
                         + " " + dataGridView1.Rows[i].Cells[2].Value
-                        + " " + dataGridView1.Rows[i].Cells[3].Value
-                        + " " + dataGridView1.Rows[i].Cells[4].Value
-                        + " " + dataGridView1.Rows[i].Cells[5].Value;
-                    if (dataGridView1.Rows[i].Cells[0].Value == null)
-                    {
-                        continue;
-                    }
+                        + " " + dataGridView1.Rows[i].Cells[3].Value;
+                    
                     reader.WriteLine(tmp);
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка открытия файла"); return;
+                MessageBox.Show("Ошибка закрытия файла"); return;
             }
         }
 
@@ -157,6 +141,7 @@ namespace Planning_Glushchenko
             {
                 dataGridView1.Rows[i].HeaderCell.Value = string.Format((i + 1).ToString(), "0");
             }
+            last_value = "";
         }
 
         private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -186,63 +171,63 @@ namespace Planning_Glushchenko
         {
             if (int.Parse(time_split[0]) < DateTime.Now.Hour)
             {
-                dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; return;
+                dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; return;
             }
             if (int.Parse(time_split[1]) < DateTime.Now.Minute)
             {
-                dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; return;
+                dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; return;
             }
-            dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Green;
+            dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Green;
         }
         private void status_check(string value, string time, int index)//Проверка даты и времени завершения
         {
             string[] split = value.Split('.');
             string[] time_split = time.Split(":");
-            if (dataGridView1.Rows[index].Cells[5].Value != null && dataGridView1.Rows[index].Cells[5].Value.Equals("NO"))
+            if (dataGridView1.Rows[index].Cells[3].Value != null && dataGridView1.Rows[index].Cells[3].Value.Equals("NO"))
             {
-                dataGridView1.Rows[index].Cells[5].Style.BackColor = Color.Red;
+                dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Red;
             }
             else
             {
-                if (dataGridView1.Rows[index].Cells[5].Value != null && dataGridView1.Rows[index].Cells[5].Value.Equals("OK"))
+                if (dataGridView1.Rows[index].Cells[3].Value != null && dataGridView1.Rows[index].Cells[3].Value.Equals("OK"))
                 {
-                    dataGridView1.Rows[index].Cells[5].Style.BackColor = Color.Green;
+                    dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Green;
                 }
             }
             if (int.Parse(split[2]) < DateTime.Now.Year)
             {
-                dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
             }
             if (int.Parse(split[1]) < DateTime.Now.Month)
             {
-                dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
             }
             if (int.Parse(split[0]) < DateTime.Now.Day)
             {
-                dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Red; time_check(time_split, index); return;
             }
-            dataGridView1.Rows[index].Cells[3].Style.BackColor = Color.Green;
+            dataGridView1.Rows[index].Cells[1].Style.BackColor = Color.Green;
 
-            string[] Time = dataGridView1.Rows[index].Cells[4].Value.ToString().Split(":");
+            string[] Time = dataGridView1.Rows[index].Cells[2].Value.ToString().Split(":");
 
             if (int.Parse(split[2]) == DateTime.Now.Year && int.Parse(split[1]) == DateTime.Now.Month && int.Parse(split[0]) == DateTime.Now.Day)
             {
                 if (int.Parse(Time[0]) < DateTime.Now.Hour)
                 {
-                    dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
                 if (int.Parse(Time[1]) < DateTime.Now.Minute && int.Parse(Time[0]) == DateTime.Now.Hour)
                 {
-                    dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Red; time_check(time_split, index); return;
+                    dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Red; time_check(time_split, index); return;
                 }
             }
-            dataGridView1.Rows[index].Cells[4].Style.BackColor = Color.Green;
+            dataGridView1.Rows[index].Cells[2].Style.BackColor = Color.Green;
         }
         private void check_cells()
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                status_check(dataGridView1.Rows[i].Cells[3].Value.ToString(), dataGridView1.Rows[i].Cells[4].Value.ToString(), i);
+                status_check(dataGridView1.Rows[i].Cells[1].Value.ToString(), dataGridView1.Rows[i].Cells[2].Value.ToString(), i);
             }
         }
 
@@ -255,7 +240,7 @@ namespace Planning_Glushchenko
         {
             if (SelectedRowIndex != -1)
             {
-                if (e.ColumnIndex == 0) //Изменение даты начала
+                if (e.ColumnIndex == 1) //Изменение даты окончания
                 {
                     string alp = "0123456789.";
                     int count = 0;
@@ -267,12 +252,20 @@ namespace Planning_Glushchenko
                             count++;
                         }
                     }
-                    if (count != line.Length)
+                    if (count != 10 || !(line.IndexOf('.') == 2 && line.IndexOf('.', 3) == 5))
                     {
                         dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
                     }
+                    if (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[2].Value != null)
+                    {
+                        if (count == 10 && line.IndexOf('.') == 2 && line.IndexOf('.',3) == 5)
+                        {
+                            status_check(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), e.RowIndex);
+                        }
+                    }
                 }
-                if (e.ColumnIndex == 1)
+
+                if (e.ColumnIndex == 2)
                 {
                     string alp = "0123456789:";
                     int count = 0;
@@ -284,55 +277,7 @@ namespace Planning_Glushchenko
                             count++;
                         }
                     }
-                    if (count != line.Length)
-                    {
-                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
-                    }
-                    string[] split = line.Split(':');
-                    if (int.Parse(split[0]) > 23 || int.Parse(split[1]) >= 60)
-                    {
-                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value;
-                    }
-
-                }
-                if (e.ColumnIndex == 3) //Изменение даты окончания
-                {
-                    string alp = "0123456789.";
-                    int count = 0;
-                    string line = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    for (int i = 0; i < line.Length; i++)
-                    {
-                        if (alp.Contains(line[i]))
-                        {
-                            count++;
-                        }
-                    }
-                    if (count != 10 || !(line.IndexOf('.') == 2 && line.IndexOf('.',3) == 5))
-                    {
-                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
-                    }
-                    if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[4].Value != null)
-                    {
-                        if (count == 10 && line.IndexOf('.') == 2 && line.IndexOf('.') == 5)
-                        {
-                            status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
-                        }
-                    }
-                }
-
-                if (e.ColumnIndex == 4)
-                {
-                    string alp = "0123456789:";
-                    int count = 0;
-                    string line = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    for (int i = 0; i < line.Length; i++)
-                    {
-                        if (alp.Contains(line[i]))
-                        {
-                            count++;
-                        }
-                    }
-                    if (count != 5||line.IndexOf(':')!=2)
+                    if (count != 5 || line.IndexOf(':') != 2)
                     {
                         dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value; return;
                     }
@@ -343,13 +288,13 @@ namespace Planning_Glushchenko
                         {
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = last_value;
                         }
-                        if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[4].Value != null)
+                        if (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() != null && dataGridView1.Rows[e.RowIndex].Cells[2].Value != null)
                         {
-                            status_check(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString(), e.RowIndex);
+                            status_check(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), e.RowIndex);
                         }
                     }
                 }
-                if (e.ColumnIndex == 5)
+                if (e.ColumnIndex == 3)
                 {
                     string alp = "0123456789:";
                     int count = 0;
@@ -372,17 +317,7 @@ namespace Planning_Glushchenko
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            SelectedRowIndex = e.ColumnIndex;
-            if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-            {
-                last_value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-            }
-        }
-
-        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-            if (e.ColumnIndex != -1)
+            if (e.ColumnIndex != -1 && e.RowIndex != -1)
             {
                 SelectedRowIndex = e.ColumnIndex;
                 if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
@@ -392,9 +327,17 @@ namespace Planning_Glushchenko
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
+            if (e.ColumnIndex != -1 && e.RowIndex != -1)
+            {
+                SelectedRowIndex = e.ColumnIndex;
+                if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    last_value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }
         }
     }
 }
